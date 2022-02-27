@@ -1,4 +1,4 @@
-local function module()
+
     local bot = {
         bMain = 0,
         bWhitelist = {},
@@ -58,7 +58,7 @@ local function module()
                 if IsBot(Client.UserId) then
                     task.spawn(function()
                         pcall(function()
-                            f(Client, getLib())
+                            f(Client, getLib)
                         end)
                     end)
                 end
@@ -85,4 +85,3 @@ local function module()
     end
 
     return bot
-end
