@@ -1,4 +1,5 @@
-local bot = {
+local function module()
+    local bot = {
         bMain = 0,
         bWhitelist = {},
     }
@@ -31,10 +32,33 @@ local bot = {
             end
 
             function mod.shell(f)
+                local function getLib()
+                    local lib = {}
+
+                    function lib.getWhitelist()
+                        return bots.bWhitelist
+                    end
+
+                    function lib.getMain()
+                        return bots.bMain
+                    end
+
+                    function lib.IsBot()
+                        local m = bot.bMain
+
+                        if Client.UserId ~= m then
+                            return true
+                        end
+                        return false
+                    end
+                    
+                    return lib
+                end
+
                 if IsBot(Client.UserId) then
                     task.spawn(function()
                         pcall(function()
-                            f(Client, bot.bWhitelist)
+                            f(Client, getLib())
                         end)
                     end)
                 end
@@ -53,7 +77,7 @@ local bot = {
             function mod.panic()
                 Client:Kick('\nPanic Activated')
             end
-            
+
             return mod
         end
 
@@ -61,3 +85,4 @@ local bot = {
     end
 
     return bot
+end
