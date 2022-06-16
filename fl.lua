@@ -1,4 +1,5 @@
-_G.flingbot = {
+local _SUCCESS0, _ERR0 = pcall(function()
+    _G.flingbot = {
     Message = {
         enabled = false,
         src = ""
@@ -253,3 +254,6 @@ local function Initialize()
 end
     
 Initialize()
+   
+end)
+print(_SUCCESS0, _ERR0)
