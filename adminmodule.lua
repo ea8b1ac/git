@@ -9,19 +9,23 @@ makecmd("kill", function(sender, arguments)
 end)
 
 function admin:listen_ADMIN()
-	env = nil; if not _G.__admin["ready"] then _G.__admin = {incoming_requests = {}, ready = true}; env = _G.__admin else env = _G.__admin end
+	_G.__admin = {incoming_requests = {}, ready = true}
+	env = _G.__admin
 
-	env.k = "hello!"
+
 end
 
 function admin:listen_CLIENT()
-	env = nil; if not _G.__admin["ready"] then _G.__admin = {incoming_requests = {}, ready = true}; env = _G.__admin else env = _G.__admin end
+	coro = coroutine.create(function()
+		env = nil
 
-	while wait() do
-		if env["k"] then
-			print(env.k)
-		end
-	end
+		repeat wait() until _G.__admin.ready
+		print("HIII")
+
+		env = _G.__admin
+	end)
+
+	coroutine.resume(coro)
 end
 
 return admin
