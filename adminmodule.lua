@@ -12,7 +12,7 @@ function admin:listen_ADMIN()
 	_G.__admin = {incoming_requests = {}, ready = true}
 	env = _G.__admin
 
-
+	print('admin: environment ready')
 end
 
 function admin:listen_CLIENT()
@@ -24,7 +24,9 @@ function admin:listen_CLIENT()
 
 		env = _G.__admin
 	end)
-
+	
+	print('client: starting coro')
+	
 	coroutine.resume(coro)
 end
 
