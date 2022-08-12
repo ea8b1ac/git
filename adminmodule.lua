@@ -12,20 +12,23 @@ function admin:listen_ADMIN()
 	_G.__admin = {incoming_requests = {}, ready = true}
 	env = _G.__admin
 
-	print('admin: environment ready')
+	print('environment ready')
 end
 
 function admin:listen_CLIENT()
 	coro = coroutine.create(function()
 		env = nil
 
-		repeat wait() until _G.__admin.ready
-		print("HIII")
+		print('coro is on')
+
+		repeat wait(1) until _G.__admin.ready
+		
+		print('client found main environment')
 
 		env = _G.__admin
 	end)
 	
-	print('client: starting coro')
+	print('starting coro')
 	
 	coroutine.resume(coro)
 end
